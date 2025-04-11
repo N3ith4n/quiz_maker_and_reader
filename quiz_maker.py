@@ -21,10 +21,10 @@ def createQuiz(filename):
           correct = choice
 
       #organizes the format of the txt
-      f.write(f"Question: {question}\n") #write the question to the file
+      f.write(f"Question: {question}\n")
       for key in choices:
-        f.write(f"{key}) {answers[key]}\n") #write each answer choice with its letter (a, b, c, d)
-      f.write(f"Correct answer: {correct}\n\n") #write which letter is the correct answer, then add a blank line for spacing
+        f.write(f"{key}) {answers[key]}\n")
+      f.write(f"Correct answer: {correct}\n\n")
 
 #run
-createQuiz("test.txt")
+createQuiz("quiz.txt")
