@@ -5,24 +5,43 @@ from math import floor
 
 #make a function that produces a loading animation at the start
 def animatedCenter(text):
-  	#functions that will get the terminal size and setup the necessary animation variables
-	center = os.get_terminal_size().columns #gets the width of the terminal so the animation will be placed in the center
-	arrows = 1 #starting animation counter (the arrows will start at 1 then up to the number of maxn)
-	duration = 6 #the animation will run for 6 seconds
-	max_arrows = 3 #how wide the arrows should stretch before disappearing the same way
+	#functions that will get the terminal size and setup the necessary animation variables
+	center = os.get_terminal_size().columns
+	arrows = 1
+	duration = 6
+	max_arrows = 3
 
 	#main animation loop (while loop)
 	while duration > 0:
-		space = floor(c/2)-(floor(len(text)/2)+1+maxn) #this is the actual calculation on how the center was taken
-		spacer = " "*space #this is a string of spaces that allows the program to place the input string and arrows at the center
+		space = floor(center / 2) - (floor(len(text) / 2) + 1 + max_arrows)
+		spacer = " " * space
 
-		#functions for the animation of arrows going to the center
-		print(spacer+f"{('>'*n)+' '*(maxn-n)} {text} {' '*(maxn-n)+('<'*n)}" + spacer, end="\033[H", flush=True)
-		time.sleep(0.1) #interval before executing the animation of each arrow
-		duration -= 0.1 #reduces the duration of the whole animation so that it will end at the duration we placed
-		arrows += 1 #this increases the number of arrows
-		
-	#clears the terminal once thr animation has finished
+		#functions for the animation of arrows going to the center (appearing)
+		print(spacer + f"{('>' * arrows) + ' ' * (max_arrows - arrows)} {text} {' ' * (max_arrows - arrows) + ('<' * arrows)}" + spacer, end="\033[H", flush=True)
+		time.sleep(0.1)
+		duration -= 0.1
+		arrows += 1
+
+		#if loop for the animation that makes the arrows disappear
+		if arrows > max_arrows:
+			spaces_that_eats_the_arrows = 0 #initialize
+			arrows = max_arrows #this prevents the amount of arrows from going over 3
+
+			time.sleep(0.3) #another interval before the arrows are 'eaten' by spaces (like before the start of the eating happens)
+			duration -= 0.3 #decreases the duration to ensure that the animation finsihes on time
+			
+			while arrows != 0: 
+				spaces_that_eats_the_arrows += 1 #add a space
+				arrows -= 1 #remove an arrow to simulate it getting 'eaten'
+				#this is where the actual eating happens
+				print(spacer + f"{(' ' * spaces_that_eats_the_arrows) + '>' * arrows} {text} {'<' * arrows + ' ' * spaces_that_eats_the_arrows}" + spacer, end="\033[H", flush=True)
+				time.sleep(0.1) #this interval is the time before another arrow is eaten after the one before it
+				duration -= 0.1 #decreases the duration to ensure that the animation finsihes on time
+
+			time.sleep(0.3) #this is the interval before another cycle begins
+			duration -= 0.3 #decreases the duration to ensure that the animation finsihes on time
+			
+	#clears the terminal once the animation has finished
 
   return True
   
