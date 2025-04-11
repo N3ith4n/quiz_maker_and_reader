@@ -41,36 +41,40 @@ def animatedCenter(text):
 			duration -= 0.3
 			
 	#clears the terminal once the animation has finished
-	print("\033[H\033[J", end="") #function to clear the terminal and put the cursor back to its initial position (or so called home position)
-	return True #just added it cuz why not, its not really necessary but I just like it being there
+	print("\033[H\033[J", end="")
+	return True
   
 #make a function
+# make a function
 def createQuiz(filename):
-  #open a file in append mode to avoid overwriting previous data
-  with open(filename, "a") as f:
-    choices = ["a", "b", "c", "d"]
-    #while loop for inputting the questions and answers
-    while True:
-      question = input('Enter a question (type "stop" to finish): ')
-      if question.lower() == "stop":
-        break
-        
-      #empty dictionary to store the answers effecrively
-      answers = {}
-      correct = ""
-      #for loop for inputting the answers
-      for choice in choices:
-        ans = input(f"{choice}. ")
-        is_correct = input("Is this the correct answer? (y/n): ").lower()
-        answers[choice] = ans
-        if is_correct == "y":
-          correct = choice
+	animatedCenter("loading...")
+	with open(filename, "a") as f:
+		choices = ["a", "b", "c", "d"]
+		while True:
+			specPrint('Enter a question (type "stop" to finish): ')
+			question = input()
+			if question.lower() == "stop":
+				break
 
-      #organizes the format of the txt
-      f.write(f"Question: {question}\n")
-      for key in choices:
-        f.write(f"{key}) {answers[key]}\n")
-      f.write(f"Correct answer: {correct}\n\n")
+			answers = {}
+			correct = ""
+			for choice in choices:
+				specPrint(f"{choice}. ")
+				ans = input()
+				specPrint("Is this the correct answer? (y/n): ")
+				is_correct = input().lower()
+				answers[choice] = ans
+				if is_correct == "y":
+					correct = choice
+
+			# animated file-writing style print
+
+
+			# write to file
+			f.write(f"Question: {question}\n")
+			for key in choices:
+				f.write(f"{key}) {answers[key]}\n")
+			f.write(f"Correct answer: {correct}\n\n")
 
 #run
 createQuiz("quiz.txt")
