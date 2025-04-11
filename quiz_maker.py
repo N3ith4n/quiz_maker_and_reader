@@ -4,10 +4,10 @@ import time
 from math import floor
 
 #make a function that adds a delay before printing each character
-def spec_print(text, spd=0.03, nl=False):
+def spec_print(text, speed=0.03, new_list=False):
 	for character in text:
 		print(character, end="", flush=True)
-		time.sleep(spd)
+		time.sleep(speed)
 	if(nl):
  		print("") 
 
