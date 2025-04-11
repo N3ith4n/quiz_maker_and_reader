@@ -11,16 +11,20 @@ def createQuiz(filename):
         
       #empty dictionary to store the answers effecrively
       answers = {}
-      correct = "" #added a variable that will store the correct letter (just for better organization)
+      correct = ""
       #for loop for inputting the answers
       for choice in choices:
-        ans = input(f"{choice}. ") #the user will be asked to input the choices and will be asked if its the correct answer or not
-        is_correct = input("Is this the correct answer? (y/n): ").lower() #lowers it just to match what the code needs
-        answers[choice] = ans #inputs the answers to the dictionary, the choice letter will be the keyw
-        if is_correct == "y": #if the user input 'y', the letter of that choice will be inputted to the variable "choice"
+        ans = input(f"{choice}. ")
+        is_correct = input("Is this the correct answer? (y/n): ").lower()
+        answers[choice] = ans
+        if is_correct == "y":
           correct = choice
 
       #organizes the format of the txt
+      f.write(f"Question: {question}\n") #write the question to the file
+      for key in choices:
+        f.write(f"{key}) {answers[key]}\n") #write each answer choice with its letter (a, b, c, d)
+      f.write(f"Correct answer: {correct}\n\n") #write which letter is the correct answer, then add a blank line for spacing
 
 #run
 createQuiz("test.txt")
