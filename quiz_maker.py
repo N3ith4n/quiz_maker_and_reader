@@ -24,26 +24,25 @@ def animatedCenter(text):
 
 		#if loop for the animation that makes the arrows disappear
 		if arrows > max_arrows:
-			spaces_that_eats_the_arrows = 0 #initialize
-			arrows = max_arrows #this prevents the amount of arrows from going over 3
+			spaces_that_eats_the_arrows = 0
+			arrows = max_arrows
 
-			time.sleep(0.3) #another interval before the arrows are 'eaten' by spaces (like before the start of the eating happens)
-			duration -= 0.3 #decreases the duration to ensure that the animation finsihes on time
+			time.sleep(0.3)
+			duration -= 0.3
 			
 			while arrows != 0: 
-				spaces_that_eats_the_arrows += 1 #add a space
-				arrows -= 1 #remove an arrow to simulate it getting 'eaten'
-				#this is where the actual eating happens
+				spaces_that_eats_the_arrows += 1
+				arrows -= 1
 				print(spacer + f"{(' ' * spaces_that_eats_the_arrows) + '>' * arrows} {text} {'<' * arrows + ' ' * spaces_that_eats_the_arrows}" + spacer, end="\033[H", flush=True)
-				time.sleep(0.1) #this interval is the time before another arrow is eaten after the one before it
-				duration -= 0.1 #decreases the duration to ensure that the animation finsihes on time
+				time.sleep(0.1)
+				duration -= 0.1
 
-			time.sleep(0.3) #this is the interval before another cycle begins
-			duration -= 0.3 #decreases the duration to ensure that the animation finsihes on time
+			time.sleep(0.3)
+			duration -= 0.3
 			
 	#clears the terminal once the animation has finished
-
-  return True
+	print("\033[H\033[J", end="") #function to clear the terminal and put the cursor back to its initial position (or so called home position)
+	return True #just added it cuz why not, its not really necessary but I just like it being there
   
 #make a function
 def createQuiz(filename):
