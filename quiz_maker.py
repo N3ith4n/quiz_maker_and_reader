@@ -6,6 +6,10 @@ from math import floor
 #make a function that produces a loading animation at the start
 def animatedCenter(text):
   #functions that will get the terminal size and setup the necessary animation variables
+  c = os.get_terminal_size().columns #gets the width of the terminal so the animation will be placed in the center
+	n = 1 #starting animation counter (the arrows will start at 1 then up to the number of maxn)
+	duration = 6 #the animation will run for 6 seconds
+	maxn = 3 #how wide the arrows should stretch before disappearing the same way
 
   #main animation loop (while loop)
 
