@@ -4,11 +4,11 @@ import time
 from math import floor
 
 #make a function that adds a delay before printing each character
-def specPrint(text, spd=0.03, nl=False): #called the spd just in case we want to change it later on, also called nl just in case we want a new line later on
+def specPrint(text, spd=0.03, nl=False):
 	for character in text:
-		print(character, end="", flush=True) #prints each character one by one, flush is necessary as if its False it will just print it normally, flush enables it to be seen getting printed one by one
-		time.sleep(spd) #an interval the same as the spd at top, this is necessary so it wont print the characters instantly
-	if(nl): #this is in case we want it to print a new line
+		print(character, end="", flush=True)
+		time.sleep(spd)
+	if(nl):
  		print("") 
 
 #make a function that produces a loading animation at the start
@@ -52,7 +52,6 @@ def animatedCenter(text):
 	print("\033[H\033[J", end="")
   
 #make a function
-# make a function
 def createQuiz(filename):
 	animatedCenter("loading...")
 	with open(filename, "a") as f:
@@ -66,19 +65,21 @@ def createQuiz(filename):
 			answers = {}
 			correct = ""
 			for choice in choices:
+				specPrint(f"{choice}. ")
 				ans = input()
+				specPrint("Is this the correct answer? (y/n): ")
 				is_correct = input().lower()
 				answers[choice] = ans
 				if is_correct == "y":
 					correct = choice
 
-			#animated file-writing style print
-			index = 0
+			# animated file-writing style print
+			index = 0 
 			while index < len(question):
 				print(f"{filename} < {question[index:]}")
 				index += 1
 				time.sleep(0.1)
-				
+
 			# write to file
 			f.write(f"Question: {question}\n")
 			for key in choices:
