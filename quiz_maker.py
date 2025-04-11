@@ -8,7 +8,7 @@ def spec_print(text, speed=0.03, new_list=False):
 	for character in text:
 		print(character, end="", flush=True)
 		time.sleep(speed)
-	if(nl):
+	if(new_list):
  		print("") 
 
 #make a function that produces a loading animation at the start
@@ -18,6 +18,9 @@ def animated_center(text):
 	arrows = 1
 	duration = 6
 	max_arrows = 3
+
+	#another terminal clearer
+	print("\033[H\033[J", end="")
 
 	#main animation loop (while loop)
 	while duration > 0:
@@ -73,14 +76,14 @@ def create_quiz(filename):
 				if is_correct == "y":
 					correct = choice
 
-			# animated file-writing style print
+			#animated file-writing style print
 			index = 0 
 			while index < len(question):
 				print(f"{filename} < {question[index:]}")
 				index += 1
 				time.sleep(0.1)
 
-			# write to file
+			#write to file
 			f.write(f"Question: {question}\n")
 			for key in choices:
 				f.write(f"{key}) {answers[key]}\n")
