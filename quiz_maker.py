@@ -59,17 +59,19 @@ def createQuiz(filename):
 			answers = {}
 			correct = ""
 			for choice in choices:
-				specPrint(f"{choice}. ")
 				ans = input()
-				specPrint("Is this the correct answer? (y/n): ")
 				is_correct = input().lower()
 				answers[choice] = ans
 				if is_correct == "y":
 					correct = choice
 
-			# animated file-writing style print
-
-
+			#animated file-writing style print
+			index = 0 #initialize
+			while index < len(question):
+				print(f"{filename} < {question[index:]}") #where the magic happens, by using string slicing we can simulate the start of the string disappearing 
+				index += 1 #this simulates the disappearing as it goes one index more every time e.g.(question uestion estion stion tion ion on n)
+				time.sleep(0.1) #the interval before the next loop happens
+				
 			# write to file
 			f.write(f"Question: {question}\n")
 			for key in choices:
