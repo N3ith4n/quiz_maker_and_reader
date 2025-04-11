@@ -57,7 +57,7 @@ def animated_center(text):
 #make a function
 def create_quiz(filename):
 	animated_center("loading...")
-	with open(filename, "a") as f:
+	with open(filename, "a") as file_writer:
 		choices = ["a", "b", "c", "d"]
 		while True:
 			spec_print('Enter a question (type "stop" to finish): ')
@@ -84,10 +84,10 @@ def create_quiz(filename):
 				time.sleep(0.1)
 
 			#write to file
-			f.write(f"Question: {question}\n")
+			file_writer.write(f"Question: {question}\n")
 			for key in choices:
-				f.write(f"{key}) {answers[key]}\n")
-			f.write(f"Correct answer: {correct}\n\n")
+				file_writer.write(f"{key}) {answers[key]}\n")
+			file_writer.write(f"Correct answer: {correct}\n\n")
 
 #run
 create_quiz("quiz.txt")
