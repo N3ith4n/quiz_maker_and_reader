@@ -5,15 +5,24 @@ from math import floor
 
 #make a function that produces a loading animation at the start
 def animatedCenter(text):
-  #functions that will get the terminal size and setup the necessary animation variables
-  c = os.get_terminal_size().columns #gets the width of the terminal so the animation will be placed in the center
-	n = 1 #starting animation counter (the arrows will start at 1 then up to the number of maxn)
+  	#functions that will get the terminal size and setup the necessary animation variables
+	center = os.get_terminal_size().columns #gets the width of the terminal so the animation will be placed in the center
+	arrows = 1 #starting animation counter (the arrows will start at 1 then up to the number of maxn)
 	duration = 6 #the animation will run for 6 seconds
-	maxn = 3 #how wide the arrows should stretch before disappearing the same way
+	max_arrows = 3 #how wide the arrows should stretch before disappearing the same way
 
-  #main animation loop (while loop)
+	#main animation loop (while loop)
+	while duration > 0:
+		space = floor(c/2)-(floor(len(text)/2)+1+maxn) #this is the actual calculation on how the center was taken
+		spacer = " "*space #this is a string of spaces that allows the program to place the input string and arrows at the center
 
-  #clears the terminal once thr animation has finished
+		#functions for the animation of arrows going to the center
+		print(spacer+f"{('>'*n)+' '*(maxn-n)} {text} {' '*(maxn-n)+('<'*n)}" + spacer, end="\033[H", flush=True)
+		time.sleep(0.1) #interval before executing the animation of each arrow
+		duration -= 0.1 #reduces the duration of the whole animation so that it will end at the duration we placed
+		arrows += 1 #this increases the number of arrows
+		
+	#clears the terminal once thr animation has finished
 
   return True
   
