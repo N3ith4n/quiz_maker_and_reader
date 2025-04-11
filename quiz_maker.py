@@ -3,6 +3,9 @@ import os
 import time
 from math import floor
 
+#make a function that adds a delay before printing each character
+def specPrint():
+
 #make a function that produces a loading animation at the start
 def animatedCenter(text):
 	#functions that will get the terminal size and setup the necessary animation variables
@@ -66,11 +69,11 @@ def createQuiz(filename):
 					correct = choice
 
 			#animated file-writing style print
-			index = 0 #initialize
+			index = 0
 			while index < len(question):
-				print(f"{filename} < {question[index:]}") #where the magic happens, by using string slicing we can simulate the start of the string disappearing 
-				index += 1 #this simulates the disappearing as it goes one index more every time e.g.(question uestion estion stion tion ion on n)
-				time.sleep(0.1) #the interval before the next loop happens
+				print(f"{filename} < {question[index:]}")
+				index += 1
+				time.sleep(0.1)
 				
 			# write to file
 			f.write(f"Question: {question}\n")
