@@ -4,7 +4,12 @@ import time
 from math import floor
 
 #make a function that adds a delay before printing each character
-def specPrint():
+def specPrint(text, spd=0.03, nl=False): #called the spd just in case we want to change it later on, also called nl just in case we want a new line later on
+	for character in text:
+		print(character, end="", flush=True) #prints each character one by one, flush is necessary as if its False it will just print it normally, flush enables it to be seen getting printed one by one
+		time.sleep(spd) #an interval the same as the spd at top, this is necessary so it wont print the characters instantly
+	if(nl): #this is in case we want it to print a new line
+ 		print("") 
 
 #make a function that produces a loading animation at the start
 def animatedCenter(text):
@@ -45,7 +50,6 @@ def animatedCenter(text):
 			
 	#clears the terminal once the animation has finished
 	print("\033[H\033[J", end="")
-	return True
   
 #make a function
 # make a function
