@@ -1,3 +1,18 @@
+#imports for another function
+import os
+import time
+from math import floor
+
+#make a function that produces a loading animation at the start
+def animatedCenter(text):
+  #functions that will get the terminal size and setup the necessary animation variables
+
+  #main animation loop (while loop)
+
+  #clears the terminal once thr animation has finished
+
+  return True
+  
 #make a function
 def createQuiz(filename):
   #open a file in append mode to avoid overwriting previous data
