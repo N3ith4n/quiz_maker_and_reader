@@ -4,7 +4,7 @@ import time
 from math import floor
 
 #make a function that adds a delay before printing each character
-def specPrint(text, spd=0.03, nl=False):
+def spec_print(text, spd=0.03, nl=False):
 	for character in text:
 		print(character, end="", flush=True)
 		time.sleep(spd)
@@ -12,7 +12,7 @@ def specPrint(text, spd=0.03, nl=False):
  		print("") 
 
 #make a function that produces a loading animation at the start
-def animatedCenter(text):
+def animated_center(text):
 	#functions that will get the terminal size and setup the necessary animation variables
 	center = os.get_terminal_size().columns
 	arrows = 1
@@ -52,12 +52,12 @@ def animatedCenter(text):
 	print("\033[H\033[J", end="")
   
 #make a function
-def createQuiz(filename):
-	animatedCenter("loading...")
+def create_quiz(filename):
+	animated_center("loading...")
 	with open(filename, "a") as f:
 		choices = ["a", "b", "c", "d"]
 		while True:
-			specPrint('Enter a question (type "stop" to finish): ')
+			spec_print('Enter a question (type "stop" to finish): ')
 			question = input()
 			if question.lower() == "stop":
 				break
@@ -65,9 +65,9 @@ def createQuiz(filename):
 			answers = {}
 			correct = ""
 			for choice in choices:
-				specPrint(f"{choice}. ")
+				spec_print(f"{choice}. ")
 				ans = input()
-				specPrint("Is this the correct answer? (y/n): ")
+				spec_print("Is this the correct answer? (y/n): ")
 				is_correct = input().lower()
 				answers[choice] = ans
 				if is_correct == "y":
@@ -87,4 +87,4 @@ def createQuiz(filename):
 			f.write(f"Correct answer: {correct}\n\n")
 
 #run
-createQuiz("quiz.txt")
+create_quiz("quiz.txt")
