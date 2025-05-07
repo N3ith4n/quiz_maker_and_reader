@@ -112,15 +112,15 @@ def run_quiz(filename):
         user_answer = input("\nYour answer: ").lower()
 
         if user_answer == question_data["correct"]:
-            spec_print("Correct!\n")
+            spec_print("✅ Correct!\n")
             score += 1
         else:
             correct_choice = question_data["correct"]
             correct_answer = question_data["choices"][correct_choice]
-            spec_print(f"Wrong. The correct answer was {correct_choice}. {correct_answer}\n")
+            spec_print(f"❌ Wrong. The correct answer was {correct_choice}. {correct_answer}\n")
 
     spec_print(f"Your final score: {score}/{len(questions)}\n")
 
 #run the program
-if __name__ == "__main__": #decided to do it like this maybe to start it as a habit for future
+if __name__ == "__main__":
     run_quiz("quiz.txt")
