@@ -3,6 +3,7 @@ import os
 import time
 from math import floor
 import random
+import colorama
 
 #make a function that adds a delay before printing each character
 def spec_print(text, speed=0.03, new_list=False):
@@ -95,35 +96,36 @@ def run_quiz(filename):
     questions = load_questions(filename)
 
     if not questions:
-        spec_print("No questions found in the quiz file.\n")
+        spec_print("\033[31mNo questions found in the quiz file.\033[39m\n")
         return
 
-    spec_print(f"Loaded {len(questions)} questions.\n")
+    spec_print(f"\033[32mLoaded {len(questions)} questions.\033[39m\n")
 	
     random.shuffle(questions)
     score = 0
 
     for question_data in questions:
-        spec_print("\n" + question_data["question"], new_list=True)
+        spec_print("\033[36m" + question_data["question"] + "\033[39m", new_list=True)
 
         for letter, answer in question_data["choices"].items(): 
-            spec_print(f"{letter}. {answer}", new_list=True)
+            spec_print(f"\033[33m{letter}. {answer}\033[39m", new_list=True)
 
-        user_answer = input("\nYour answer: ").lower()
+        user_answer = input("\033[34mYour answer: ").lower()
 
         if user_answer == question_data["correct"]:
-            spec_print("✅ Correct!\n")
+            spec_print("\033[32m✅ Correct!\033[39m\n")
             score += 1
         else:
             correct_choice = question_data["correct"]
             correct_answer = question_data["choices"][correct_choice]
-            spec_print(f"❌ Wrong. The correct answer was {correct_choice}. {correct_answer}\n")
+            spec_print(f"\033[31m❌ Wrong.\033[39m The correct answer was {correct_choice}. {correct_answer}\n")
 
-    spec_print(f"Your final score: {score}/{len(questions)}\n")
-	
+    spec_print(f"\033[32mYour final score: {score}/{len(questions)}\033[39m\n")
+
 def ask_play_again():
-    spec_print("Do you want to play again? (y/n): ", new_list=False)
+    spec_print("\033[96mDo you want to play again? (y/n): ", new_list=False)
     answer = input().strip().lower()
+    print("\033[39m", end="")
     return answer == "y"
 
 #run the program
