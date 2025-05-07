@@ -56,6 +56,10 @@ def animated_center(text):
 	print("\033[H\033[J", end="")
 
 #def function that will read the txt file then store it in the program to be used for the program that will run the quiz
+def load_questions(filename):
+    with open(filename, "r") as file_reader: #this opens the file inside the variable filename in "r" or read mode
+        content = file_reader.read().replace('\r\n', '\n').strip()  #reads the contents of the file into one single string and removes any whitespaces 
+        blocks = [b.strip() for b in content.split('\n\n') if b.strip()]  #this splits the questions into "blocks" (1 question + 4 choices + answer) using blank lines between them
 
 #def function that will run the quiz stored
 
