@@ -91,34 +91,36 @@ def load_questions(filename):
  
 #def function that will run the quiz stored
 def run_quiz(filename):
-    animated_center("Loading Quiz...") #using the animated center function
-    questions = load_questions(filename) #this will call the function we made so we can get the questions
+    animated_center("Loading Quiz...")
+    questions = load_questions(filename)
 
-    if not questions: #just added this in case no valid questions was found, it will print a message and stops the program
+    if not questions:
         spec_print("No questions found in the quiz file.\n")
         return
 
-    spec_print(f"Loaded {len(questions)} questions.\n") #prints how many questions were loaded (in other words how many was stored in the list)
+    spec_print(f"Loaded {len(questions)} questions.\n")
 	
-    random.shuffle(questions) #randomizes the questions
-    score = 0 #initializes the score as 0 cause we have a score that will be printed later
+    random.shuffle(questions)
+    score = 0
 
-    for question_data in questions: #this prints the question and each multiple-choice option one by one.
-        spec_print("\n" + question_data["question"], new_list=True) #question
+    for question_data in questions:
+        spec_print("\n" + question_data["question"], new_list=True)
 
         for letter, answer in question_data["choices"].items(): 
-            spec_print(f"{letter}. {answer}", new_list=True) #choices
+            spec_print(f"{letter}. {answer}", new_list=True)
 
-        user_answer = input("\nYour answer: ").lower() #this asks the user to enter their answer on that question
+        user_answer = input("\nYour answer: ").lower()
 
-        if user_answer == question_data["correct"]: #if the answer inputted is correct print "Correct"
+        if user_answer == question_data["correct"]:
             spec_print("Correct!\n")
-            score += 1 #also add 1 score
+            score += 1
         else:
-            correct_choice = question_data["correct"] #this will take the correct letter from the dictionary
-            correct_answer = question_data["choices"][correct_choice] #and this will take the choice on that letter
-            spec_print(f"Wrong. The correct answer was {correct_choice}. {correct_answer}\n") #if wrong this will print
+            correct_choice = question_data["correct"]
+            correct_answer = question_data["choices"][correct_choice]
+            spec_print(f"Wrong. The correct answer was {correct_choice}. {correct_answer}\n")
 
-    spec_print(f"Your final score: {score}/{len(questions)}\n") #after the loop ends the total score will be printed like so
+    spec_print(f"Your final score: {score}/{len(questions)}\n")
 
 #run the program
+if __name__ == "__main__": #decided to do it like this maybe to start it as a habit for future
+    run_quiz("quiz.txt")
