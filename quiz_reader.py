@@ -57,9 +57,24 @@ def animated_center(text):
 
 #def function that will read the txt file then store it in the program to be used for the program that will run the quiz
 def load_questions(filename):
-    with open(filename, "r") as file_reader: #this opens the file inside the variable filename in "r" or read mode
-        content = file_reader.read().replace('\r\n', '\n').strip()  #reads the contents of the file into one single string and removes any whitespaces 
-        blocks = [b.strip() for b in content.split('\n\n') if b.strip()]  #this splits the questions into "blocks" (1 question + 4 choices + answer) using blank lines between them
+    with open(filename, "r") as file_reader:
+        content = file_reader.read().replace('\r\n', '\n').strip()
+        blocks = [b.strip() for b in content.split('\n\n') if b.strip()]
+    
+    questions = [] #empty list that will store the questions
+    for block in blocks:
+        lines = [line.strip() for line in block.split('\n') if line.strip()] #this now splits the blocks into lines to determine which is the question, choices and answer
+        if len(lines) != 6:  #checks that there are 6 lines per block and if there isnt, these guys below (a warning) runs and skips that block
+            print(f"Skipping malformed block (expected 6 lines, got {len(lines)}):\n{block}")
+            continue
+
+        try:
+            question_text = lines[0].replace("Question: ", "").strip() #this removes the word "Question: " so that when its printed in the terminal it will look fine
+            choices = {} #this stores the questions
+            for line in lines[1:5]:  #we know that question is in line 0 and answer in line 5 so we want the loop to start in line 1 and end in line 4
+                if len(line) >= 3 and line[1] == ')': #this makes sure the format of the choices will be something like a) , b) , and so on
+                    choices[line[0].lower()] = line[3:].strip() #lowers the letter in index 0 just to make sure its not A) but a) and removes the whitespaces in the actual choices so it's easier to store
+								#then stores the choices in the empty dictionary we initialized earlier
 
 #def function that will run the quiz stored
 
