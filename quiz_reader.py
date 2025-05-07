@@ -75,20 +75,50 @@ def load_questions(filename):
                 if len(line) >= 3 and line[1] == ')':
                     choices[line[0].lower()] = line[3:].strip()
 			
-            correct = lines[5].replace("Correct answer: ", "").strip().lower() #takes line 5(the one with the correct answer) and removes "Correct answer: " so only the lette of the correct answer will be left so it matches the keys in the dictionary
-            if correct in choices: #if the correct answer exists in the choices, save the question, choices, and correct answer to the list
+            correct = lines[5].replace("Correct answer: ", "").strip().lower()
+            if correct in choices:
                 questions.append({ 
                     "question": question_text,
                     "choices": choices,
                     "correct": correct
                 })
             else:
-                print(f"Skipping block (invalid correct answer '{correct}'):\n{block}") #but if it doesn't exist, this shows a warning and skips the block
+                print(f"Skipping block (invalid correct answer '{correct}'):\n{block}")
         except Exception as e:
-            print(f"Error parsing block:\n{block}\nError: {e}") #if any kind of error shows up this will be printed but not crash the program
+            print(f"Error parsing block:\n{block}\nError: {e}")
     
-    return questions #this then return the final list of all valid questions
+    return questions
  
 #def function that will run the quiz stored
+def run_quiz(filename):
+    animated_center("Loading Quiz...") #using the animated center function
+    questions = load_questions(filename) #this will call the function we made so we can get the questions
+
+    if not questions: #just added this in case no valid questions was found, it will print a message and stops the program
+        spec_print("No questions found in the quiz file.\n")
+        return
+
+    spec_print(f"Loaded {len(questions)} questions.\n") #prints how many questions were loaded (in other words how many was stored in the list)
+	
+    random.shuffle(questions) #randomizes the questions
+    score = 0 #initializes the score as 0 cause we have a score that will be printed later
+
+    for question_data in questions: #this prints the question and each multiple-choice option one by one.
+        spec_print("\n" + question_data["question"], new_list=True) #question
+
+        for letter, answer in question_data["choices"].items(): 
+            spec_print(f"{letter}. {answer}", new_list=True) #choices
+
+        user_answer = input("\nYour answer: ").lower() #this asks the user to enter their answer on that question
+
+        if user_answer == question_data["correct"]: #if the answer inputted is correct print "Correct"
+            spec_print("Correct!\n")
+            score += 1 #also add 1 score
+        else:
+            correct_choice = question_data["correct"] #this will take the correct letter from the dictionary
+            correct_answer = question_data["choices"][correct_choice] #and this will take the choice on that letter
+            spec_print(f"Wrong. The correct answer was {correct_choice}. {correct_answer}\n") #if wrong this will print
+
+    spec_print(f"Your final score: {score}/{len(questions)}\n") #after the loop ends the total score will be printed like so
 
 #run the program
