@@ -120,7 +120,15 @@ def run_quiz(filename):
             spec_print(f"❌ Wrong. The correct answer was {correct_choice}. {correct_answer}\n")
 
     spec_print(f"Your final score: {score}/{len(questions)}\n")
+	
+def ask_play_again():
+    spec_print("Do you want to play again? (y/n): ", new_list=False)
+    answer = input().strip().lower()
+    return answer == "y"
 
 #run the program
 if __name__ == "__main__":
-    run_quiz("quiz.txt")
+     while True:
+        run_quiz("quiz.txt")
+        if not ask_play_again():
+            break
