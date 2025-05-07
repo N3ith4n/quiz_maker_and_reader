@@ -61,21 +61,34 @@ def load_questions(filename):
         content = file_reader.read().replace('\r\n', '\n').strip()
         blocks = [b.strip() for b in content.split('\n\n') if b.strip()]
     
-    questions = [] #empty list that will store the questions
+    questions = []
     for block in blocks:
-        lines = [line.strip() for line in block.split('\n') if line.strip()] #this now splits the blocks into lines to determine which is the question, choices and answer
-        if len(lines) != 6:  #checks that there are 6 lines per block and if there isnt, these guys below (a warning) runs and skips that block
+        lines = [line.strip() for line in block.split('\n') if line.strip()]
+        if len(lines) != 6:
             print(f"Skipping malformed block (expected 6 lines, got {len(lines)}):\n{block}")
             continue
 
         try:
-            question_text = lines[0].replace("Question: ", "").strip() #this removes the word "Question: " so that when its printed in the terminal it will look fine
-            choices = {} #this stores the questions
-            for line in lines[1:5]:  #we know that question is in line 0 and answer in line 5 so we want the loop to start in line 1 and end in line 4
-                if len(line) >= 3 and line[1] == ')': #this makes sure the format of the choices will be something like a) , b) , and so on
-                    choices[line[0].lower()] = line[3:].strip() #lowers the letter in index 0 just to make sure its not A) but a) and removes the whitespaces in the actual choices so it's easier to store
-								#then stores the choices in the empty dictionary we initialized earlier
-
+            question_text = lines[0].replace("Question: ", "").strip()
+            choices = {}
+            for line in lines[1:5]:
+                if len(line) >= 3 and line[1] == ')':
+                    choices[line[0].lower()] = line[3:].strip()
+			
+            correct = lines[5].replace("Correct answer: ", "").strip().lower() #takes line 5(the one with the correct answer) and removes "Correct answer: " so only the lette of the correct answer will be left so it matches the keys in the dictionary
+            if correct in choices: #if the correct answer exists in the choices, save the question, choices, and correct answer to the list
+                questions.append({ 
+                    "question": question_text,
+                    "choices": choices,
+                    "correct": correct
+                })
+            else:
+                print(f"Skipping block (invalid correct answer '{correct}'):\n{block}") #but if it doesn't exist, this shows a warning and skips the block
+        except Exception as e:
+            print(f"Error parsing block:\n{block}\nError: {e}") #if any kind of error shows up this will be printed but not crash the program
+    
+    return questions #this then return the final list of all valid questions
+ 
 #def function that will run the quiz stored
 
 #run the program
